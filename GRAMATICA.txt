@@ -1,0 +1,50 @@
+<programa> ::= <seqDeclaração>
+
+<seqDeclaração> ::= <declaração> {<declaração>}
+
+//int a, b = 2, c;
+<declaração> ::= tipo <sequenciaID>
+
+<sequenciaID> ::= id ';'
+| id ',' <sequenciaID>
+| id '=' <expressao> ',' <sequenciaID>
+| id '=' <expressao> ';'
+
+<inicializacao> ::= tipo id '=' <expressão> ';'
+
+//!TENHOCERTEZA
+<atribuicao> ::= id <op_atribuicao> <expressao> ';'
+
+<comando> ::= <comandoIf>
+ | <comandoFor>
+ | <comandoWhile>
+ | ...
+
+<comandoIf> ::= 'if' '(' <expressão> ')' '{' <bloco> '}'
+ | 'if' '(' <expressão> ')' '{' <bloco> '}' 'else' '{' <bloco> '}'
+
+<comandoFor> ::= 'for' '(' <inicializacao> ';' <expressao> ';' <atribuicao> ')' '{' <bloco> '}'
+ | 'for' '(' <inicializacao> ';' <expressao> ';' <atribuicao> ')' '{' <blocoRepeticao> '}'
+
+<comandoWhile> ::= 'while' '(' <expressao> ')' '{' <bloco> '}'
+ | 'while' '(' <expressao> ')' '{' <blocoRepeticao> '}'
+
+ <interrupcaoDeLaco> ::= 'break' ';'
+
+//ID não precisa ser VARIÁVEL, mas VARIÁVEL tem que ser um ID
+//VARIÁVEL = ID????????????
+<expressão> ::= num
+ | str
+ | lógico
+ | <variável>
+ | <chamadaFunção>
+ | <expressão> <op> <expressão>
+ | ...
+
+<bloco> ::= ...
+
+<blocoRepeticao> ::= ...
+
+
+//PRECISA DISSO?
+<op> ::= ...

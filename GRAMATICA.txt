@@ -1,27 +1,52 @@
-<programa> ::= <seqDeclaração>
+//****************DECLARAcoES****************
+<programa> ::= <seqDeclaracao>
 
-<seqDeclaração> ::= <declaração> {<declaração>}
+<seqDeclaracao> ::= <declaracao> {<declaracao>}
 
 //int a, b = 2, c;
-<declaração> ::= tipo <sequenciaID>
+<declaracao> ::= tipo <sequenciaID>
+| tipo <sequenciaVETOR>
+| <declaracaoFuncao>
+| <declaracaoDeProcedimento>
 
 <sequenciaID> ::= id ';'
 | id ',' <sequenciaID>
 | id '=' <expressao> ',' <sequenciaID>
 | id '=' <expressao> ';'
 
-<inicializacao> ::= tipo id '=' <expressão> ';'
+//O QUE VAI TER DENTRO DO COLCHETE
+<sequenciaVETOR> ::= id '[' num ']' ';'
+| id '[' num ']' ',' <sequenciaVETOR>
+| id '[' num ']' '=' '{'<expressaoVETOR>'}' ',' <sequenciaVETOR>
+| id '[' num ']' '=' '{'<expressaoVETOR>'}' ';'
 
-//!TENHOCERTEZA
-<atribuicao> ::= id <op_atribuicao> <expressao> ';'
+<expressaoVETOR> ::= num <virgulaOuVazio> 
+| logico <virgulaOuVazio>
+| str <virgulaOuVazio>
 
+<virgulaOuVazio> ::= ',' <expressaoVETOR> | vazio
+
+<variavel> ::= id | id '[' <expressao> ']'
+
+//****************ATRIBUIcoES****************
+<inicializacao> ::= tipo id '=' <expressao> ';'
+
+<op_atribuicao> ::= '+=' |'-='| '/=' | '*=' | '%=' | '='
+
+//****************COMANDOS****************
 <comando> ::= <comandoIf>
  | <comandoFor>
  | <comandoWhile>
- | ...
+ | <comandoAtribuicao>
+ | <chamadaFuncao>
+ | <chamadaDeProcedimento>
+ | 
 
-<comandoIf> ::= 'if' '(' <expressão> ')' '{' <bloco> '}'
- | 'if' '(' <expressão> ')' '{' <bloco> '}' 'else' '{' <bloco> '}'
+//!TENHOCERTEZA
+<comandoAtribuicao> ::= <variavel> <op_atribuicao> <expressao> ';'
+
+<comandoIf> ::= 'if' '(' <expressao> ')' '{' <bloco> '}'
+ | 'if' '(' <expressao> ')' '{' <bloco> '}' 'else' '{' <bloco> '}'
 
 <comandoFor> ::= 'for' '(' <inicializacao> ';' <expressao> ';' <atribuicao> ')' '{' <bloco> '}'
  | 'for' '(' <inicializacao> ';' <expressao> ';' <atribuicao> ')' '{' <blocoRepeticao> '}'
@@ -31,20 +56,47 @@
 
  <interrupcaoDeLaco> ::= 'break' ';'
 
-//ID não precisa ser VARIÁVEL, mas VARIÁVEL tem que ser um ID
-//VARIÁVEL = ID????????????
-<expressão> ::= num
+ <retornoSubprograma> ::= 'return' '[' <expressao> ']' ';'
+
+<declaracaoDeProcedimento> ::= tipo id '(' <parametro> ')' '{' <bloco> '}'
+| tipo id '(' ')' '{' <bloco> '}'
+
+ <chamadaDeProcedimento> ::= id '('  <parametroChamada> ')' ';'
+ | id '(' ')' ';'
+
+ //****************FUNcaO****************
+
+<declaracaoFuncao> ::= tipo id '(' <parametro> ')' '{' <bloco> '}'
+| tipo id '(' ')' '{' <bloco> '}'
+
+<chamadaDeFuncao> ::= id '(' <parametroChamada> ')' ';'
+| id '(' ')' ';'
+
+<parametroChamada> ::= <expressao> <auxiliarParametroChamada>
+
+<auxiliarParametroChamada> ::= ',' <parametroChamada>
+| vazio
+
+ <parametro> ::= tipo id ',' <parametro>
+ | tipo id
+
+
+//ID nao precisa ser variavel, mas variavel tem que ser um ID
+//variavel = ID????????????
+<expressao> ::= num
  | str
- | lógico
- | <variável>
- | <chamadaFunção>
- | <expressão> <op> <expressão>
+ | logico
+ | <variavel>
+ | <chamadaFuncao>
+ | <expressao> <op> <expressao>
  | ...
 
-<bloco> ::= ...
+<bloco> ::= <declaracao> <bloco> 
+| <expressao> <blocoExpressoes>
 
-<blocoRepeticao> ::= ...
+
+<blocoRepeticao> ::= <interrupcaoDeLaco>...
 
 
-//PRECISA DISSO?
-<op> ::= ...
+//PRECISA DISSO? precedencia????????????
+<op> ::= '!' | '+' | '-' | '/' | '*' | '>' | '>=' | '<' | '<=' | '%' | '==' | '!=' | '||' | '&&'  

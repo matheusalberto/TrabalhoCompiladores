@@ -1,18 +1,14 @@
-//****************DECLARACOES****************
-<programa> ::= <bloco>
+//****************PROGRAMA****************
+<programa> ::= <declaracoes> <main>
+<main> ::= 'int' 'main' '(' ')' '{' <bloco> '}'
 
+//****************VARIAVEIS****************	
 <declaracoes> ::= <declaracao> <declaracoes>
 
 <declaracao> ::= <tipo> <sequenciaID>
 | <tipo> <sequenciaVETOR>
 | <declaracaoFuncao>
 | <declaracaoDeProcedimento>
-
-<declaracaoFuncao> ::= <tipo> id '(' <parametro> ')' '{' <bloco> '}'
-| <tipo> id '(' ')' '{' <bloco> '}'
-
-<declaracaoDeProcedimento> ::= <tipo> id '(' <parametro> ')' '{' <bloco> '}'
-| <tipo> id '(' ')' '{' <bloco> '}'
 
 <sequenciaID> ::= id ';'
 | id ',' <sequenciaID>
@@ -32,13 +28,21 @@
 
 <variavel> ::= id | id '[' <expressao> ']'
 
-//****************ATRIBUICOES****************
-<inicializacao> ::= <tipo> id '=' <expressao> 
+//****************TIPOS PRIMITIVOS****************
+<tipo> ::= 'int' | 'string' | 'bool'
+
+//****************SUBPROGRAMA****************
+<declaracaoFuncao> ::= <tipo> id '(' <parametro> ')' '{' <bloco> '}'
+| <tipo> id '(' ')' '{' <bloco> '}'
+
+<declaracaoDeProcedimento> ::= id '(' <parametro> ')' '{' <bloco> '}'
+| id '(' ')' '{' <bloco> '}'
+
+
 
 <op_atribuicao> ::= '+=' |'-='| '/=' | '*=' | '%=' | '='
 
 //****************COMANDOS****************
-
 <comandos> ::= <comando> <comandos>
 
 <comando> ::= <comandoIf>
@@ -49,6 +53,8 @@
  | <chamadaDeProcedimento>
  | <retornoSubprograma>
  | <interrupcaoDeLaco>
+
+<inicializacao> ::= <tipo> id '=' <expressao> 
 
 <comandoAtribuicao> ::= <variavel> <op_atribuicao> <expressao> ';'
 
@@ -68,18 +74,14 @@
  <chamadaDeProcedimento> ::= id '('  <parametroChamada> ')' ';'
  | id '(' ')' ';'
 
- //****************FUNCAO****************
-<chamadaDeFuncao> ::= id '(' <parametroChamada> ')' ';'
-| id '(' ')' ';'
+ <read> ::= 'read' <variavel> ';'
 
-<parametroChamada> ::= <expressao> <auxiliarParametroChamada>
+ <write> ::= 'write' <parametroChamada> ';'
 
-<auxiliarParametroChamada> ::= ',' <parametroChamada>
-| vazio
+//****************BLOCO****************
+<bloco> ::= <declaracoes> <comandos>
 
- <parametro> ::= <tipo> id ',' <parametro>
- | <tipo> id
-
+//****************EXPRESSAO****************
 <expressao> ::= num
  | str
  | logico
@@ -88,8 +90,19 @@
  | <expressao> <op> <expressao>
  | <expressao> '?' <expressao> : <expressao>
 
-<bloco> ::= <declaracoes> <comandos>
+ //****************FUNCAO****************
+<chamadaDeFuncao> ::= id '(' <parametroChamada> ')' ';'
+| id '(' ')' ';'
+
+
+//****************AUXILIARES****************
+<parametroChamada> ::= <expressao> <auxiliarParametroChamada>
+
+<auxiliarParametroChamada> ::= ',' <parametroChamada>
+| vazio
+
+ <parametro> ::= <tipo> id ',' <parametro>
+ | <tipo> id
 
 <op> ::= '!' | '+' | '-' | '/' | '*' | '>' | '>=' | '<' | '<=' | '%' | '==' | '!=' | '||' | '&&' 
 
-<tipo> ::= 'int' | 'string' | 'bool'

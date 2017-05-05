@@ -57,15 +57,18 @@
 <inicializacao> ::= <tipo> id '=' <expressao> 
 
 <comandoAtribuicao> ::= <variavel> <op_atribuicao> <expressao> ';'
+<comandoAtribuicaoFor> ::= <variavel> <op_atribuicao> <expressao> 
 
-<comandoIf> ::= 'if' '(' <expressao> ')' '{' <bloco> '}'
- | 'if' '(' <expressao> ')' '{' <bloco> '}' 'else' '{' <bloco> '}'
+
+<comandoIf> ::= 'if' '(' <expressao> ')' '{' <bloco> '}' <else>
+
+<else> ::= 'else' '{' <bloco> '}'
+| vazio
+
 
 <comandoFor> ::= 'for' '(' <inicializacao> ';' <expressao> ';' <comandoAtribuicao> ')' '{' <bloco> '}'
- | 'for' '(' <inicializacao> ';' <expressao> ';' <comandoAtribuicao> ')' '{' <blocoRepeticao> '}'
 
 <comandoWhile> ::= 'while' '(' <expressao> ')' '{' <bloco> '}'
- | 'while' '(' <expressao> ')' '{' <blocoRepeticao> '}'
 
  <interrupcaoDeLaco> ::= 'break' ';'
 
@@ -87,8 +90,10 @@
  | logico
  | <variavel>
  | <chamadaFuncao>
- | <expressao> <op> <expressao>
- | <expressao> '?' <expressao> : <expressao>
+ | <expressao> <fatorExpressao>
+
+ <fatorExpressao> ::= <op> <expressao>
+ |'?' <expressao> : <expressao>
 
  //****************FUNCAO****************
 <chamadaDeFuncao> ::= id '(' <parametroChamada> ')' ';'

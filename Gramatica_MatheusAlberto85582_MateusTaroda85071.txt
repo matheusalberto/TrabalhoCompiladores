@@ -1,6 +1,8 @@
+//MATHEUS ALBERTO VAZ CECILIO 85582
+//MATEUS HIDEAKI TARODA 85071
+
 //****************PROGRAMA****************
-<programa> ::= <declaracoes> <main>
-<main> ::= 'int' 'main' '(' ')' '{' <bloco> '}'
+<programa> ::= <declaracoes> <declaracaoFuncao>
 
 //****************VARIAVEIS****************	
 <declaracoes> ::= <declaracao> <declaracoes>
@@ -49,7 +51,7 @@
  | <comandoFor>
  | <comandoWhile>
  | <comandoAtribuicao>
- | <chamadaFuncao>
+ | <chamadaDeFuncao>
  | <chamadaDeProcedimento>
  | <retornoSubprograma>
  | <interrupcaoDeLaco>
@@ -89,11 +91,13 @@
  | str
  | logico
  | <variavel>
- | <chamadaFuncao>
+ | <chamadaDeFuncao>
+ | <negacao> <expressao>
+ | <negativo> <expressao>
  | <expressao> <fatorExpressao>
 
  <fatorExpressao> ::= <op> <expressao>
- |'?' <expressao> : <expressao>
+ |'?' <expressao> ':' <expressao>
 
  //****************FUNCAO****************
 <chamadaDeFuncao> ::= id '(' <parametroChamada> ')' ';'
@@ -109,5 +113,17 @@
  <parametro> ::= <tipo> id ',' <parametro>
  | <tipo> id
 
-<op> ::= '!' | '+' | '-' | '/' | '*' | '>' | '>=' | '<' | '<=' | '%' | '==' | '!=' | '||' | '&&' 
+<op> ::= <op_aritmetico> | <op_logico> | <op_relacional>
+
+<op_atribuicao> ::= '+=' |'-='| '/=' | '*=' | '%=' | '='
+
+<op_aritmetico> ::= <negativo> | '+' | '*' | '/' | '%'
+
+<negacao> ::= !
+
+<positivoNegativo> ::= '-' 
+
+<op_logico> ::= '&&' | '||' | '&' | '|'
+
+<op_relacional> ::= '>' | '<' | '==' | '!=' | '>=' | '<=' | '<<' | '>>'
 

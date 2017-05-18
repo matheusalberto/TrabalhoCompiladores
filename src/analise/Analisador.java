@@ -10,7 +10,7 @@ public class Analisador {
     }
     
     public static void main(String[] args) {
-        String path = "C:\\Users\\Matheus\\Desktop\\TrabalhoCompiladores\\src\\analise\\Lexer.flex";
+        String path = "C:\\Users\\Matheus\\Google Drive\\CIÊNCIA DA COMPUTAÇÃO - 2017\\Comp\\TrabalhoCompiladores\\src\\analise\\lexica\\Lexer.flex";
         gerarLexer(path);
     }
     

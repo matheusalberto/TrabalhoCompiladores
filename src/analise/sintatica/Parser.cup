@@ -1,0 +1,226 @@
+//java -jar jflex-1.6.1.jar Lexer.flex
+
+//java -jar java-cup-11b.jar -parser Parser -symbols Sym Parser.cup
+
+package analise.sintatica;
+
+import java_cup.runtime.*;
+import java.util.*;
+import java.io.*;
+
+parser code {:
+
+    public void report_error(String message, Object info)  {
+        System.out.println("Warning - " + message);
+    }
+
+    public void report_fatal_error(String message, Object info)  {
+        System.out.println("Error - " + message);
+        System.exit(-1);
+    }
+
+:};
+
+terminal 
+MAIS, 
+MENOS, 
+UMENOS, 
+DIVIDIR, 
+MULTIPLICAR, 
+MOD,
+OR, 
+AND, 
+NEGACAO,
+INTERROGACAO,
+MAIOR, 
+MENOR, 
+IGUAL, 
+DIFERENTE, 
+MAIOR_IGUAL, 
+MENOR_IGUAL,
+OPERADOR_ATRIBUICAO, 
+OPERADOR_BOOLEANO, 
+DOIS_PONTOS,
+BREAK,
+ELSE,
+FOR,
+IF,
+RETURN,
+WHILE,
+BOOL,
+INT,
+TIPO_STRING,
+WRITE,
+READ,
+ID,
+NUMERO, 
+STRING,
+ABREPARENTESES,
+FECHAPARENTESES,
+ABRECOLCHETES, 
+FECHACOLCHETES,
+ABRECHAVES, 
+FECHACHAVES,
+VIRGULA,
+PONTOEVIRGULA;
+
+non terminal 
+programa, 
+declaracoes, 
+declaracao,
+decVar, 
+sequenciaID,
+sequenciaVETOR, 
+expressaoVETOR, 
+virgulaOuVazio,        
+variavel,
+tipo, 
+comandos,
+comando,
+comandoAtribuicao,
+comandoAtribuicaoFor,
+comandoIf,
+else,
+comandoFor,
+comandoWhile, 
+interrupcaoDeLaco,
+retornoSubprograma,
+chamada,
+read, 
+write, 
+bloco,
+expressao,
+parametroChamada,
+auxiliarParametroChamada,
+parametro,
+seqParametro,
+decVarList, 
+declaracaoFuncao, 
+declaracaoProcedimento;
+
+/* Precedências */
+precedence right INTERROGACAO, DOIS_PONTOS;
+precedence left OR;
+precedence left AND;
+precedence left IGUAL, DIFERENTE;
+precedence left MENOR, MENOR_IGUAL, MAIOR, MAIOR_IGUAL;
+precedence left MAIS, MENOS;
+precedence left MULTIPLICAR, DIVIDIR, MOD;
+precedence right NEGACAO;
+precedence right UMENOS;
+
+start with programa;
+
+programa ::= declaracoes;
+
+declaracoes ::= declaracao declaracoes | declaracao;
+
+declaracao ::= decVar 
+| declaracaoFuncao
+| declaracaoProcedimento;
+
+decVar ::= tipo sequenciaID 
+| tipo sequenciaVETOR;
+
+decVarList ::= decVar decVarList;
+
+sequenciaID ::= ID PONTOEVIRGULA
+| ID VIRGULA sequenciaID 
+| ID OPERADOR_ATRIBUICAO expressao VIRGULA sequenciaID
+| ID OPERADOR_ATRIBUICAO expressao PONTOEVIRGULA; 
+
+sequenciaVETOR ::= ID ABRECOLCHETES NUMERO FECHACOLCHETES PONTOEVIRGULA
+| ID ABRECOLCHETES NUMERO FECHACOLCHETES VIRGULA sequenciaVETOR
+| ID ABRECOLCHETES NUMERO FECHACOLCHETES OPERADOR_ATRIBUICAO ABRECHAVES expressaoVETOR FECHACHAVES VIRGULA sequenciaVETOR
+| ID ABRECOLCHETES NUMERO FECHACOLCHETES OPERADOR_ATRIBUICAO ABRECHAVES expressaoVETOR FECHACHAVES PONTOEVIRGULA;
+
+expressaoVETOR ::= NUMERO virgulaOuVazio 
+| NUMERO
+| OPERADOR_BOOLEANO virgulaOuVazio 
+| OPERADOR_BOOLEANO
+| STRING virgulaOuVazio 
+| STRING;
+
+virgulaOuVazio ::= VIRGULA expressaoVETOR;
+
+variavel ::= ID
+| ID ABRECOLCHETES expressao FECHACOLCHETES;
+
+tipo ::= TIPO_STRING
+| INT
+| BOOL;
+
+declaracaoFuncao ::= tipo ID ABREPARENTESES seqParametro FECHAPARENTESES ABRECHAVES bloco FECHACHAVES
+| tipo ID ABREPARENTESES FECHAPARENTESES ABRECHAVES bloco FECHACHAVES;
+
+declaracaoProcedimento ::= ID ABREPARENTESES seqParametro FECHAPARENTESES ABRECHAVES bloco FECHACHAVES
+| ID ABREPARENTESES FECHAPARENTESES ABRECHAVES bloco FECHACHAVES;
+
+comandos ::= comando comandos;
+
+comando ::= comandoIf
+| comandoFor
+| comandoWhile
+| comandoAtribuicao
+| retornoSubprograma
+| interrupcaoDeLaco
+| read
+| write;
+
+comandoAtribuicao ::= variavel OPERADOR_ATRIBUICAO expressao PONTOEVIRGULA;
+
+comandoAtribuicaoFor ::= variavel OPERADOR_ATRIBUICAO expressao;
+
+comandoIf ::= IF ABREPARENTESES expressao FECHAPARENTESES ABRECHAVES bloco FECHACHAVES
+| IF ABREPARENTESES expressao FECHAPARENTESES ABRECHAVES bloco FECHACHAVES else;
+
+else ::= ELSE ABRECHAVES bloco FECHACHAVES;
+
+comandoFor ::= FOR ABREPARENTESES comandoAtribuicaoFor PONTOEVIRGULA expressao PONTOEVIRGULA comandoAtribuicao FECHAPARENTESES ABRECHAVES bloco FECHACHAVES;
+
+comandoWhile ::= WHILE ABREPARENTESES expressao FECHAPARENTESES ABRECHAVES bloco FECHACHAVES;
+
+interrupcaoDeLaco ::= BREAK PONTOEVIRGULA;
+
+retornoSubprograma ::= RETURN ABRECOLCHETES expressao FECHACOLCHETES PONTOEVIRGULA;
+
+chamada ::= ID ABREPARENTESES parametroChamada FECHAPARENTESES PONTOEVIRGULA 
+| ID ABREPARENTESES FECHAPARENTESES PONTOEVIRGULA;
+
+read ::= READ variavel PONTOEVIRGULA;
+
+write ::= WRITE parametroChamada PONTOEVIRGULA;
+
+bloco ::= decVarList comandos | decVarList | comandos;
+
+expressao ::= NUMERO  
+| STRING 
+| OPERADOR_BOOLEANO 
+| variavel 
+| chamada 
+| NEGACAO expressao 
+| ABREPARENTESES expressao FECHAPARENTESES
+| expressao MAIS expressao
+| expressao MENOS expressao
+| expressao DIVIDIR expressao
+| expressao MULTIPLICAR expressao
+| expressao MOD expressao
+| MENOS expressao %prec UMENOS
+| expressao OR expressao
+| expressao AND expressao
+| expressao MAIOR expressao
+| expressao MENOR expressao
+| expressao MAIOR_IGUAL expressao
+| expressao MENOR_IGUAL expressao
+| expressao IGUAL expressao
+| expressao DIFERENTE expressao
+| expressao INTERROGACAO expressao DOIS_PONTOS expressao;
+
+parametroChamada ::= expressao | expressao auxiliarParametroChamada;
+
+auxiliarParametroChamada ::= VIRGULA parametroChamada;
+
+parametro ::= tipo ID | tipo ID ABREPARENTESES FECHAPARENTESES;
+
+seqParametro ::= parametro VIRGULA seqParametro | parametro;
+

@@ -1,6 +1,8 @@
 package analise.lexica;
 
-import java.io.File;
+import analise.sintatica.Parser;
+import java.io.*;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -124,9 +126,28 @@ public class Tela extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAnalisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalisarActionPerformed
+    private String escreverCodigoArquivo(String codigo){
         try {
-            Lexica.executarAnaliseLexica(txtEntrada, txtAreaResp);
+            String path = Paths.get("").toAbsolutePath().toString() + "/cod.txt";
+            BufferedWriter out = new BufferedWriter(new FileWriter(path));
+            out.write(codigo);
+            out.close();
+            return path;
+        }
+        catch (IOException e)
+        {
+            System.out.println("Exception "+e.getMessage());       
+        }
+        return "";
+    }
+    
+    
+    private void btnAnalisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalisarActionPerformed
+        try {            
+            String path = escreverCodigoArquivo(txtEntrada.getText());
+            Parser p = new Parser(new Lexer(new FileReader(path)));
+            Object result = p.parse().value;
+            System.out.println("Compilação concluída com sucesso...");
         } catch (Exception ex) {
             Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -122,7 +122,7 @@ declaracao ::= decVar
 decVar ::= tipo sequenciaID 
 | tipo sequenciaVETOR;
 
-decVarList ::= decVar decVarList;
+decVarList ::= decVar decVarList | decVar;
 
 sequenciaID ::= ID PONTOEVIRGULA
 | ID VIRGULA sequenciaID 
@@ -156,7 +156,7 @@ declaracaoFuncao ::= tipo ID ABREPARENTESES seqParametro FECHAPARENTESES ABRECHA
 declaracaoProcedimento ::= ID ABREPARENTESES seqParametro FECHAPARENTESES ABRECHAVES bloco FECHACHAVES
 | ID ABREPARENTESES FECHAPARENTESES ABRECHAVES bloco FECHACHAVES;
 
-comandos ::= comando comandos;
+comandos ::= comando comandos | comando;
 
 comando ::= comandoIf
 | comandoFor

@@ -74,17 +74,17 @@ STRING = \"(.[^\"]*)\"
    (";") {return new Symbol(Sym.PONTOEVIRGULA);}
 
     /*palavras reservadas */
-  (“break”) {return new Symbol(Sym.BREAK);}
-  (“else”) {return new Symbol(Sym.ELSE);}
-  (“for”) {return new Symbol(Sym.FOR);}
-  (“if”) {return new Symbol(Sym.IF);}
-  (“return”) {return new Symbol(Sym.RETURN);}
-   (“while”) {return new Symbol(Sym.WHILE);}
-   (“bool”) {return new Symbol(Sym.BOOL);}
-   (“int”) {return new Symbol(Sym.INT);}
-   (“string”) {return new Symbol(Sym.TIPO_STRING);}
-   (“write”) {return new Symbol(Sym.WRITE);}
-   (“read”) {return new Symbol(Sym.READ);}
+  ("break") {return new Symbol(Sym.BREAK);}
+  ("else") {return new Symbol(Sym.ELSE);}
+  ("for") {return new Symbol(Sym.FOR);}
+  ("if") {return new Symbol(Sym.IF);}
+  ("return") {return new Symbol(Sym.RETURN);}
+   ("while") {return new Symbol(Sym.WHILE);}
+   ("bool") {return new Symbol(Sym.BOOL);}
+   ("int") {return new Symbol(Sym.INT);}
+   ("string") {return new Symbol(Sym.TIPO_STRING);}
+   ("write") {return new Symbol(Sym.WRITE);}
+   ("read") {return new Symbol(Sym.READ);}
 
     {BRANCO} {}
     {LETRAS} {return new Symbol(Sym.ID);}

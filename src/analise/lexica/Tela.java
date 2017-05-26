@@ -7,11 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Tela extends javax.swing.JFrame {
-   
-    public static void gerarLexer(String path) {
-        File file = new File(path);
-        jflex.Main.generate(file);
-    }
 
     public Tela() {
         initComponents();
@@ -21,22 +16,12 @@ public class Tela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         btnAnalisar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtAreaResp = new javax.swing.JTextArea();
-        jLabel3 = new javax.swing.JLabel();
-        btnGerar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtEntrada = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Análise Lexica");
-
-        jLabel2.setText("Entrada: ");
 
         btnAnalisar.setText("Analisar");
         btnAnalisar.addActionListener(new java.awt.event.ActionListener() {
@@ -52,19 +37,6 @@ public class Tela extends javax.swing.JFrame {
             }
         });
 
-        txtAreaResp.setColumns(20);
-        txtAreaResp.setRows(5);
-        jScrollPane1.setViewportView(txtAreaResp);
-
-        jLabel3.setText("Resultado:");
-
-        btnGerar.setText("Gerar");
-        btnGerar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGerarActionPerformed(evt);
-            }
-        });
-
         txtEntrada.setColumns(20);
         txtEntrada.setRows(5);
         jScrollPane3.setViewportView(txtEntrada);
@@ -76,49 +48,20 @@ public class Tela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addGap(247, 247, 247)
-                                .addComponent(btnGerar)
-                                .addGap(9, 9, 9))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(326, 326, 326)
-                                .addComponent(jLabel3)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(btnAnalisar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
+                    .addComponent(btnAnalisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(btnGerar))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAnalisar)
-                    .addComponent(btnLimpar))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAnalisar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLimpar)
                 .addContainerGap())
         );
 
@@ -155,12 +98,7 @@ public class Tela extends javax.swing.JFrame {
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         txtEntrada.setText("");
-        txtAreaResp.setText("");
     }//GEN-LAST:event_btnLimparActionPerformed
-
-    private void btnGerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarActionPerformed
-        gerarLexer("C:\\Users\\Matheus\\Google Drive\\CIÊNCIA DA COMPUTAÇÃO - 2017\\Comp\\TrabalhoCompiladores\\src\\analise\\lexica\\Lexer.flex");
-    }//GEN-LAST:event_btnGerarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,14 +137,8 @@ public class Tela extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnalisar;
-    private javax.swing.JButton btnGerar;
     private javax.swing.JButton btnLimpar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea txtAreaResp;
     private javax.swing.JTextArea txtEntrada;
     // End of variables declaration//GEN-END:variables
 }

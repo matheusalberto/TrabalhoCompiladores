@@ -1,6 +1,7 @@
 package analise.lexica; 
 
 import java_cup.runtime.Symbol;
+import analise.sintatica.Sym;
 
 %%
 
@@ -30,69 +31,69 @@ STRING = \"(.[^\"]*)\"
 
     /* Operadores Aritméticos */
     //( "+" | "-" | "*" | "/" | "%" )    {return new Symbol(Sym.OPERADOR_ARITMETICO); }
-    ("+") {return new Symbol(Sym.MAIS);}
-    ("-") {return new Symbol(Sym.MENOS);}
-    ("/") {return new Symbol(Sym.DIVIDIR);}
-    ("*") {return new Symbol(Sym.MULTIPLICAR);}
-    ("%") {return new Symbol(Sym.MOD);}
+    ("+") {return new Symbol(Sym.MAIS, yyline, yycolumn, yytext());}
+    ("-") {return new Symbol(Sym.MENOS, yyline, yycolumn, yytext());}
+    ("/") {return new Symbol(Sym.DIVIDIR, yyline, yycolumn, yytext());}
+    ("*") {return new Symbol(Sym.MULTIPLICAR, yyline, yycolumn, yytext());}
+    ("%") {return new Symbol(Sym.MOD, yyline, yycolumn, yytext());}
 
     /* Operadores Lógicos */
     //("&&" | "||" | "&" | "|" )    {return new Symbol(Sym.OPERADOR_LOGICO);}
 
-    ("&&") {return new Symbol(Sym.AND);}
-    ("||") {return new Symbol(Sym.OR);}
+    ("&&") {return new Symbol(Sym.AND, yyline, yycolumn, yytext());}
+    ("||") {return new Symbol(Sym.OR, yyline, yycolumn, yytext());}
 
-    ("!") {return new Symbol(Sym.NEGACAO);}
+    ("!") {return new Symbol(Sym.NEGACAO, yyline, yycolumn, yytext());}
 
-    ( "?" ) {return new Symbol(Sym.INTERROGACAO);}
+    ( "?" ) {return new Symbol(Sym.INTERROGACAO, yyline, yycolumn, yytext());}
 
 
     /*Operadores Relacionais */
     //(">" | "<" | "==" | "!=" | ">=" | "<=" | "<<" | ">>")   {return new Symbol(Sym.OPERADOR_RELACIONAL);}
 
-    (">") {return new Symbol(Sym.MAIOR);}
-    ("<") {return new Symbol(Sym.MENOR);}
-    ("==") {return new Symbol(Sym.IGUAL);}
-    ("!=") {return new Symbol(Sym.DIFERENTE);}
-    (">=") {return new Symbol(Sym.MAIOR_IGUAL);}
-    ("<=") {return new Symbol(Sym.MENOR_IGUAL);}
+    (">") {return new Symbol(Sym.MAIOR, yyline, yycolumn, yytext());}
+    ("<") {return new Symbol(Sym.MENOR, yyline, yycolumn, yytext());}
+    ("==") {return new Symbol(Sym.IGUAL, yyline, yycolumn, yytext());}
+    ("!=") {return new Symbol(Sym.DIFERENTE, yyline, yycolumn, yytext());}
+    (">=") {return new Symbol(Sym.MAIOR_IGUAL, yyline, yycolumn, yytext());}
+    ("<=") {return new Symbol(Sym.MENOR_IGUAL, yyline, yycolumn, yytext());}
 
     /* Operadores Atribuição */
     ("+=" | "-="  | "*=" | "/=" | "%=" | "=")      {return new Symbol(Sym.OPERADOR_ATRIBUICAO);}
 
     /*Operadores Booleanos*/
-    (true | false)      {return new Symbol(Sym.OPERADOR_BOOLEANO);}
+    (true | false)      {return new Symbol(Sym.OPERADOR_BOOLEANO, yyline, yycolumn, yytext());}
 
     /*Separadores */
-   ("(") {return new Symbol(Sym.ABREPARENTESES);}
-   (")") {return new Symbol(Sym.FECHAPARENTESES);}
-   ("[") {return new Symbol(Sym.ABRECOLCHETES);}
-   ("]") {return new Symbol(Sym.FECHACOLCHETES);}
-   ("{") {return new Symbol(Sym.ABRECHAVES);}
-   ("}") {return new Symbol(Sym.FECHACHAVES);}
-   (",") {return new Symbol(Sym.VIRGULA);}
-   (";") {return new Symbol(Sym.PONTOEVIRGULA);}
+   ("(") {return new Symbol(Sym.ABREPARENTESES, yyline, yycolumn, yytext());}
+   (")") {return new Symbol(Sym.FECHAPARENTESES, yyline, yycolumn, yytext());}
+   ("[") {return new Symbol(Sym.ABRECOLCHETES, yyline, yycolumn, yytext());}
+   ("]") {return new Symbol(Sym.FECHACOLCHETES, yyline, yycolumn, yytext());}
+   ("{") {return new Symbol(Sym.ABRECHAVES, yyline, yycolumn, yytext());}
+   ("}") {return new Symbol(Sym.FECHACHAVES, yyline, yycolumn, yytext());}
+   (",") {return new Symbol(Sym.VIRGULA, yyline, yycolumn, yytext());}
+   (";") {return new Symbol(Sym.PONTOEVIRGULA, yyline, yycolumn, yytext());}
 
     /*palavras reservadas */
-  ("break") {return new Symbol(Sym.BREAK);}
-  ("else") {return new Symbol(Sym.ELSE);}
-  ("for") {return new Symbol(Sym.FOR);}
-  ("if") {return new Symbol(Sym.IF);}
-  ("return") {return new Symbol(Sym.RETURN);}
-   ("while") {return new Symbol(Sym.WHILE);}
-   ("bool") {return new Symbol(Sym.BOOL);}
-   ("int") {return new Symbol(Sym.INT);}
-   ("string") {return new Symbol(Sym.TIPO_STRING);}
-   ("write") {return new Symbol(Sym.WRITE);}
-   ("read") {return new Symbol(Sym.READ);}
+  ("break") {return new Symbol(Sym.BREAK, yyline, yycolumn, yytext());}
+  ("else") {return new Symbol(Sym.ELSE, yyline, yycolumn, yytext());}
+  ("for") {return new Symbol(Sym.FOR, yyline, yycolumn, yytext());}
+  ("if") {return new Symbol(Sym.IF, yyline, yycolumn, yytext());}
+  ("return") {return new Symbol(Sym.RETURN, yyline, yycolumn, yytext());}
+   ("while") {return new Symbol(Sym.WHILE, yyline, yycolumn, yytext());}
+   ("bool") {return new Symbol(Sym.BOOL, yyline, yycolumn, yytext());}
+   ("int") {return new Symbol(Sym.INT, yyline, yycolumn, yytext());}
+   ("string") {return new Symbol(Sym.TIPO_STRING, yyline, yycolumn, yytext());}
+   ("write") {return new Symbol(Sym.WRITE, yyline, yycolumn, yytext());}
+   ("read") {return new Symbol(Sym.READ, yyline, yycolumn, yytext());}
 
     {BRANCO} {}
-    {LETRAS} {return new Symbol(Sym.ID);}
-    {DIGITO} {return new Symbol(Sym.NUMERO);}
-    {STRING} {return new Symbol(Sym.STRING);}    
+    {LETRAS} {return new Symbol(Sym.ID, yyline, yycolumn, yytext());}
+    {DIGITO} {return new Symbol(Sym.NUMERO, yyline, yycolumn, yytext());}
+    {STRING} {return new Symbol(Sym.STRING, yyline, yycolumn, yytext());}    
     {COMENTARIO} {}
-    {DIGITO}{LETRAS} { throw new Error("Illegal character: "+yytext()+" at line "+(yyline+1)+", column "+(yycolumn+1) ); }
+    {DIGITO}{LETRAS} { throw new Error("Illegal character: ->"+yytext()+"<- at line "+(yyline+1)+", column "+(yycolumn+1));}
 }
-<<EOF>> { return new Symbol( Sym.EOF ); }
+<<EOF>> { return new Symbol( Sym.EOF , yyline, yycolumn, yytext()); }
 
-[^] { throw new Error("Illegal character: "+yytext()+" at line "+(yyline+1)+", column "+(yycolumn+1) ); }
+[^] { throw new Error("Illegal character: ->"+yytext()+"<- at line "+(yyline+1)+", column "+(yycolumn+1)); }

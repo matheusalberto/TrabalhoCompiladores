@@ -2,8 +2,8 @@
 
 package analise.lexica; 
 
-import analise.sintatica.Sym;
 import java_cup.runtime.Symbol;
+import analise.sintatica.Sym;
 
 
 /**
@@ -58,11 +58,11 @@ public class Lexer implements java_cup.runtime.Scanner {
     "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\2"+
     "\1\1\1\7\1\10\1\11\1\1\1\12\1\13\1\14"+
     "\1\15\1\16\5\5\1\17\1\20\1\21\1\22\1\23"+
-    "\1\24\1\25\1\26\3\5\1\2\1\0\1\16\1\1"+
-    "\1\27\1\0\1\30\1\31\1\32\1\33\1\34\10\5"+
-    "\1\35\3\5\2\0\1\36\5\5\1\37\3\5\1\40"+
-    "\2\5\1\0\1\41\1\5\1\42\1\43\2\5\1\44"+
-    "\4\5\1\45\1\46\1\47\1\50\1\51";
+    "\1\24\1\25\1\26\3\5\1\2\1\0\1\16\1\27"+
+    "\1\30\1\0\1\31\1\32\1\33\1\34\1\35\10\5"+
+    "\1\36\3\5\2\0\1\37\5\5\1\40\3\5\1\41"+
+    "\2\5\1\0\1\42\1\5\1\43\1\44\2\5\1\45"+
+    "\4\5\1\46\1\47\1\50\1\51\1\52";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[89];
@@ -688,175 +688,179 @@ public class Lexer implements java_cup.runtime.Scanner {
         zzAtEOF = true;
             zzDoEOF();
               {
-                return new Symbol( Sym.EOF );
+                return new Symbol( Sym.EOF , yyline, yycolumn, yytext());
               }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { throw new Error("Illegal character: "+yytext()+" at line "+(yyline+1)+", column "+(yycolumn+1) );
+            { throw new Error("Illegal character: ->"+yytext()+"<- at line "+(yyline+1)+", column "+(yycolumn+1));
             }
-          case 42: break;
+          case 43: break;
           case 2: 
             { 
             }
-          case 43: break;
-          case 3: 
-            { return new Symbol(Sym.DIVIDIR);
-            }
           case 44: break;
-          case 4: 
-            { return new Symbol(Sym.MULTIPLICAR);
+          case 3: 
+            { return new Symbol(Sym.DIVIDIR, yyline, yycolumn, yytext());
             }
           case 45: break;
-          case 5: 
-            { return new Symbol(Sym.ID);
+          case 4: 
+            { return new Symbol(Sym.MULTIPLICAR, yyline, yycolumn, yytext());
             }
           case 46: break;
-          case 6: 
-            { return new Symbol(Sym.NUMERO);
+          case 5: 
+            { return new Symbol(Sym.ID, yyline, yycolumn, yytext());
             }
           case 47: break;
-          case 7: 
-            { return new Symbol(Sym.MAIS);
+          case 6: 
+            { return new Symbol(Sym.NUMERO, yyline, yycolumn, yytext());
             }
           case 48: break;
-          case 8: 
-            { return new Symbol(Sym.MENOS);
+          case 7: 
+            { return new Symbol(Sym.MAIS, yyline, yycolumn, yytext());
             }
           case 49: break;
-          case 9: 
-            { return new Symbol(Sym.MOD);
+          case 8: 
+            { return new Symbol(Sym.MENOS, yyline, yycolumn, yytext());
             }
           case 50: break;
-          case 10: 
-            { return new Symbol(Sym.NEGACAO);
+          case 9: 
+            { return new Symbol(Sym.MOD, yyline, yycolumn, yytext());
             }
           case 51: break;
-          case 11: 
-            { return new Symbol(Sym.INTERROGACAO);
+          case 10: 
+            { return new Symbol(Sym.NEGACAO, yyline, yycolumn, yytext());
             }
           case 52: break;
-          case 12: 
-            { return new Symbol(Sym.MAIOR);
+          case 11: 
+            { return new Symbol(Sym.INTERROGACAO, yyline, yycolumn, yytext());
             }
           case 53: break;
-          case 13: 
-            { return new Symbol(Sym.MENOR);
+          case 12: 
+            { return new Symbol(Sym.MAIOR, yyline, yycolumn, yytext());
             }
           case 54: break;
+          case 13: 
+            { return new Symbol(Sym.MENOR, yyline, yycolumn, yytext());
+            }
+          case 55: break;
           case 14: 
             { return new Symbol(Sym.OPERADOR_ATRIBUICAO);
             }
-          case 55: break;
-          case 15: 
-            { return new Symbol(Sym.ABREPARENTESES);
-            }
           case 56: break;
-          case 16: 
-            { return new Symbol(Sym.FECHAPARENTESES);
+          case 15: 
+            { return new Symbol(Sym.ABREPARENTESES, yyline, yycolumn, yytext());
             }
           case 57: break;
-          case 17: 
-            { return new Symbol(Sym.ABRECOLCHETES);
+          case 16: 
+            { return new Symbol(Sym.FECHAPARENTESES, yyline, yycolumn, yytext());
             }
           case 58: break;
-          case 18: 
-            { return new Symbol(Sym.FECHACOLCHETES);
+          case 17: 
+            { return new Symbol(Sym.ABRECOLCHETES, yyline, yycolumn, yytext());
             }
           case 59: break;
-          case 19: 
-            { return new Symbol(Sym.ABRECHAVES);
+          case 18: 
+            { return new Symbol(Sym.FECHACOLCHETES, yyline, yycolumn, yytext());
             }
           case 60: break;
-          case 20: 
-            { return new Symbol(Sym.FECHACHAVES);
+          case 19: 
+            { return new Symbol(Sym.ABRECHAVES, yyline, yycolumn, yytext());
             }
           case 61: break;
-          case 21: 
-            { return new Symbol(Sym.VIRGULA);
+          case 20: 
+            { return new Symbol(Sym.FECHACHAVES, yyline, yycolumn, yytext());
             }
           case 62: break;
-          case 22: 
-            { return new Symbol(Sym.PONTOEVIRGULA);
+          case 21: 
+            { return new Symbol(Sym.VIRGULA, yyline, yycolumn, yytext());
             }
           case 63: break;
-          case 23: 
-            { return new Symbol(Sym.OR);
+          case 22: 
+            { return new Symbol(Sym.PONTOEVIRGULA, yyline, yycolumn, yytext());
             }
           case 64: break;
-          case 24: 
-            { return new Symbol(Sym.AND);
+          case 23: 
+            { throw new Error("Illegal character: ->"+yytext()+"<- at line "+(yyline+1)+", column "+(yycolumn+1) );
             }
           case 65: break;
-          case 25: 
-            { return new Symbol(Sym.DIFERENTE);
+          case 24: 
+            { return new Symbol(Sym.OR, yyline, yycolumn, yytext());
             }
           case 66: break;
-          case 26: 
-            { return new Symbol(Sym.MAIOR_IGUAL);
+          case 25: 
+            { return new Symbol(Sym.AND, yyline, yycolumn, yytext());
             }
           case 67: break;
-          case 27: 
-            { return new Symbol(Sym.MENOR_IGUAL);
+          case 26: 
+            { return new Symbol(Sym.DIFERENTE, yyline, yycolumn, yytext());
             }
           case 68: break;
-          case 28: 
-            { return new Symbol(Sym.IGUAL);
+          case 27: 
+            { return new Symbol(Sym.MAIOR_IGUAL, yyline, yycolumn, yytext());
             }
           case 69: break;
-          case 29: 
-            { return new Symbol(Sym.IF);
+          case 28: 
+            { return new Symbol(Sym.MENOR_IGUAL, yyline, yycolumn, yytext());
             }
           case 70: break;
-          case 30: 
-            { return new Symbol(Sym.STRING);
+          case 29: 
+            { return new Symbol(Sym.IGUAL, yyline, yycolumn, yytext());
             }
           case 71: break;
-          case 31: 
-            { return new Symbol(Sym.FOR);
+          case 30: 
+            { return new Symbol(Sym.IF, yyline, yycolumn, yytext());
             }
           case 72: break;
-          case 32: 
-            { return new Symbol(Sym.INT);
+          case 31: 
+            { return new Symbol(Sym.STRING, yyline, yycolumn, yytext());
             }
           case 73: break;
-          case 33: 
-            { return new Symbol(Sym.OPERADOR_BOOLEANO);
+          case 32: 
+            { return new Symbol(Sym.FOR, yyline, yycolumn, yytext());
             }
           case 74: break;
-          case 34: 
-            { return new Symbol(Sym.READ);
+          case 33: 
+            { return new Symbol(Sym.INT, yyline, yycolumn, yytext());
             }
           case 75: break;
-          case 35: 
-            { return new Symbol(Sym.ELSE);
+          case 34: 
+            { return new Symbol(Sym.OPERADOR_BOOLEANO, yyline, yycolumn, yytext());
             }
           case 76: break;
-          case 36: 
-            { return new Symbol(Sym.BOOL);
+          case 35: 
+            { return new Symbol(Sym.READ, yyline, yycolumn, yytext());
             }
           case 77: break;
-          case 37: 
-            { return new Symbol(Sym.BREAK);
+          case 36: 
+            { return new Symbol(Sym.ELSE, yyline, yycolumn, yytext());
             }
           case 78: break;
-          case 38: 
-            { return new Symbol(Sym.WRITE);
+          case 37: 
+            { return new Symbol(Sym.BOOL, yyline, yycolumn, yytext());
             }
           case 79: break;
-          case 39: 
-            { return new Symbol(Sym.WHILE);
+          case 38: 
+            { return new Symbol(Sym.BREAK, yyline, yycolumn, yytext());
             }
           case 80: break;
-          case 40: 
-            { return new Symbol(Sym.RETURN);
+          case 39: 
+            { return new Symbol(Sym.WRITE, yyline, yycolumn, yytext());
             }
           case 81: break;
-          case 41: 
-            { return new Symbol(Sym.TIPO_STRING);
+          case 40: 
+            { return new Symbol(Sym.WHILE, yyline, yycolumn, yytext());
             }
           case 82: break;
+          case 41: 
+            { return new Symbol(Sym.RETURN, yyline, yycolumn, yytext());
+            }
+          case 83: break;
+          case 42: 
+            { return new Symbol(Sym.TIPO_STRING, yyline, yycolumn, yytext());
+            }
+          case 84: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

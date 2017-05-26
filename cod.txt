@@ -1,10 +1,1 @@
-bool achou;
-int a()
-{
-   int b;
-  if(1 > 2)
-  {
-     int d;
-  }
-  read b;
-}
+str a = "             ";

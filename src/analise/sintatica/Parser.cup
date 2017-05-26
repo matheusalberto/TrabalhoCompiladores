@@ -1,5 +1,7 @@
+c
 //java -jar jflex-1.6.1.jar Lexer.flex
 
+//Vai na pasta onde tao .cup e execute este comando pelo terminal
 //java -jar java-cup-11b.jar -parser Parser -symbols Sym Parser.cup
 
 package analise.sintatica;
@@ -10,14 +12,20 @@ import java.io.*;
 
 parser code {:
 
-    public void report_error(String message, Object info)  {
-        System.out.println("Warning - " + message);
+	public void syntax_error(Symbol cur_token) {
+	  done_parsing();
+	  System.out.printf("Erro de sintaxe na linha %d, coluna %d. \n", cur_token.left + 1, cur_token.right);
+	  System.out.printf("Token (%s) inesperado. \n", (String)cur_token.value);
     }
 
-    public void report_fatal_error(String message, Object info)  {
-        System.out.println("Error - " + message);
-        System.exit(-1);
-    }
+    //public void report_error(String message, Object info)  {
+    //    System.out.println("Warning - " + message);
+    //}
+
+    //public void report_fatal_error(String message, Object info)  {
+    //    System.out.println("Error - " + message);
+    //    System.exit(-1);
+    //}
 
 :};
 
@@ -164,6 +172,7 @@ comando ::= comandoIf
 | comandoAtribuicao
 | retornoSubprograma
 | interrupcaoDeLaco
+| chamada
 | read
 | write;
 
@@ -176,7 +185,7 @@ comandoIf ::= IF ABREPARENTESES expressao FECHAPARENTESES ABRECHAVES bloco FECHA
 
 else ::= ELSE ABRECHAVES bloco FECHACHAVES;
 
-comandoFor ::= FOR ABREPARENTESES comandoAtribuicaoFor PONTOEVIRGULA expressao PONTOEVIRGULA comandoAtribuicao FECHAPARENTESES ABRECHAVES bloco FECHACHAVES;
+comandoFor ::= FOR ABREPARENTESES comandoAtribuicaoFor PONTOEVIRGULA expressao PONTOEVIRGULA comandoAtribuicaoFor FECHAPARENTESES ABRECHAVES bloco FECHACHAVES;
 
 comandoWhile ::= WHILE ABREPARENTESES expressao FECHAPARENTESES ABRECHAVES bloco FECHACHAVES;
 
@@ -220,7 +229,8 @@ parametroChamada ::= expressao | expressao auxiliarParametroChamada;
 
 auxiliarParametroChamada ::= VIRGULA parametroChamada;
 
-parametro ::= tipo ID | tipo ID ABREPARENTESES FECHAPARENTESES;
+parametro ::= tipo ID 
+| tipo ID ABRECOLCHETES FECHACOLCHETES;
 
 seqParametro ::= parametro VIRGULA seqParametro | parametro;
 

@@ -511,8 +511,11 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 
 
+  public String error = "";
 	public void syntax_error(Symbol cur_token) {
 	  done_parsing();
+          error = "Erro de sintaxe na linha " + cur_token.left + ", coluna "+ cur_token.right + ". \n";
+          error += "Token (" + (String)cur_token.value + ") inesperado. \n";
 	  System.out.printf("Erro de sintaxe na linha %d, coluna %d. \n", cur_token.left + 1, cur_token.right);
 	  System.out.printf("Token (%s) inesperado. \n", (String)cur_token.value);
 

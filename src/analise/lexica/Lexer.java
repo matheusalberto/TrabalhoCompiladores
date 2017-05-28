@@ -694,7 +694,9 @@ public class Lexer implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { throw new Error("Illegal character: ->"+yytext()+"<- at line "+(yyline+1)+", column "+(yycolumn+1));
+            { 
+                String error = "Illegal character: ->"+yytext()+"<- at line "+(yyline+1)+", column "+(yycolumn+1);
+                throw new Error(error);
             }
           case 43: break;
           case 2: 
@@ -782,7 +784,9 @@ public class Lexer implements java_cup.runtime.Scanner {
             }
           case 64: break;
           case 23: 
-            { throw new Error("Illegal character: ->"+yytext()+"<- at line "+(yyline+1)+", column "+(yycolumn+1) );
+            { 
+                String error = "Illegal character: ->"+yytext()+"<- at line "+(yyline+1)+", column "+(yycolumn+1);
+                throw new Error(error);
             }
           case 65: break;
           case 24: 

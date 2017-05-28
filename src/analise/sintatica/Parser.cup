@@ -1,4 +1,4 @@
-c
+//Vai na pasta onde tao .flex e execute este comando pelo terminal
 //java -jar jflex-1.6.1.jar Lexer.flex
 
 //Vai na pasta onde tao .cup e execute este comando pelo terminal

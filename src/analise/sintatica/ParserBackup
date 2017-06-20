@@ -13,10 +13,10 @@ import java.io.*;
 
 parser code {:
 
-    public void syntax_error(Symbol cur_token) {
-      done_parsing();
-      System.out.printf("Erro de sintaxe na linha %d, coluna %d. \n", cur_token.left + 1, cur_token.right);
-      System.out.printf("Token (%s) inesperado. \n", (String)cur_token.value);
+	public void syntax_error(Symbol cur_token) {
+	  done_parsing();
+	  System.out.printf("Erro de sintaxe na linha %d, coluna %d. \n", cur_token.left + 1, cur_token.right);
+	  System.out.printf("Token (%s) inesperado. \n", (String)cur_token.value);
     }
 
     //public void report_error(String message, Object info)  {
@@ -29,7 +29,7 @@ parser code {:
     //}
 
 :};
-terminal String OPERADOR_BOOLEANO, ID, NUMERO, STRING, BOOL, INT, TIPO_STRING;
+terminal String OPERADOR_BOOLEANO, ID, NUMERO, STRING;
 terminal 
 MAIS, 
 MENOS, 
@@ -60,6 +60,9 @@ FOR,
 IF,
 RETURN,
 WHILE,
+BOOL,
+INT,
+TIPO_STRING,
 WRITE,
 READ,
 ABREPARENTESES,
@@ -72,15 +75,15 @@ VIRGULA,
 PONTOEVIRGULA;
 
 non terminal Programa programa;
-non terminal Declaracao declaracao;
+non terminal declaracao;
 non terminal Declaracao declaracaoFuncao;
 non terminal Declaracao declaracaoProcedimento;
-non terminal DecVar decVar;
+non terminal Declaracao decVar;
 non terminal SpecVar specVar;
 non terminal Tipo tipo;
 non terminal Parametro parametro;
 non terminal Bloco bloco;
-non terminal Comando comando;
+non terminal comando;
 non terminal Comando comandoIf;
 non terminal Comando comandoWhile;
 non terminal Comando comandoFor;
@@ -95,7 +98,6 @@ non terminal Expressao expressao;
 non terminal Literal literal;
 non terminal List<Parametro> listaParametro;
 non terminal List<SpecVar> specVarSeq;
-non terminal List<DecVar> decVarList;
 non terminal List<Declaracao> declaracoes;
 non terminal List<Comando> comandos;
 non terminal List<Literal> seqLiteral;
@@ -119,8 +121,7 @@ programa ::= declaracoes:decList {: RESULT = new Programa(decList); :}
 
 declaracao ::= decVar 
 | declaracaoFuncao
-| declaracaoProcedimento
-;
+| declaracaoProcedimento;
 
 declaracaoFuncao ::= tipo:t ID:id ABREPARENTESES listaParametro:list FECHAPARENTESES ABRECHAVES bloco:b FECHACHAVES                                                                 {: RESULT = Declaracao.declaracaoFuncaoComParametro(t,id,list,b); :}
 | tipo:t ID:id ABREPARENTESES FECHAPARENTESES ABRECHAVES bloco:b FECHACHAVES                                                                                                        {: RESULT = Declaracao.declaracaoFuncaoSemParametro(t,id,b); :}
@@ -130,7 +131,7 @@ declaracaoProcedimento ::= ID:id ABREPARENTESES listaParametro:list FECHAPARENTE
 | ID:id ABREPARENTESES FECHAPARENTESES ABRECHAVES bloco:b FECHACHAVES                                                                                                               {: RESULT = Declaracao.declaracaoProcedimentoSemParametro(id,b); :}
 ;
 
-decVar ::= tipo:t specVarSeq:svs PONTOEVIRGULA    {: RESULT = DecVar._decVar(t,svs); :}
+decVar ::= tipo:t specVarSeq:svs PONTOEVIRGULA    {: RESULT = Declaracao._decVar(t,svs); :}
 ;
 
 specVar ::= ID:id                                                                                                   {: RESULT = SpecVar.id(id); :}
@@ -139,30 +140,29 @@ specVar ::= ID:id                                                               
 | ID:id ABRECOLCHETES NUMERO:num FECHACOLCHETES OPERADOR_ATRIBUICAO_RECEBE ABRECHAVES seqLiteral:list FECHACHAVES   {: RESULT = SpecVar.idArrayAtribuicao(id,num,list); :}
 ;
 
-tipo ::= TIPO_STRING:str                 {: RESULT = Tipo.tipoString(str); :}
-| INT:TIPO_INT                           {: RESULT = Tipo.tipoInt(TIPO_INT); :}
-| BOOL:TIPO_BOOL                         {: RESULT = Tipo.tipoBoolean(TIPO_BOOL); :}
+tipo ::= TIPO_STRING:str            {: RESULT = Tipo.tipoString(str); :}
+| INT:int                           {: RESULT = Tipo.tipoInt(int); :}
+| BOOL:bool                         {: RESULT = Tipo.tipoBoolean(bool); :}
 ;
 
 parametro ::= tipo:t ID:id                      {: RESULT = Parametro.parametro(t,id); :}
 | tipo:t ID:id ABRECOLCHETES FECHACOLCHETES     {: RESULT = Parametro.parametroArray(t,id); :}
 ;
 
-bloco ::= decVarList:dec comandos:com   {: RESULT = Bloco.decVarListComandos(dec,com); :}
-| decVarList:dec                        {: RESULT = Bloco.decVarList(dec); :}
-| comandos:com                          {: RESULT = Bloco.comandos(com); :}
+bloco ::= declaracoes:dec comandos:com   {: RESULT = Bloco.decVarListComandos(dec,com); :}
+| declaracoes:dvl                        {: RESULT = Bloco.decVarList(dec); :}
+| comandos:com                          {: RESULT = Bloco.comandos(comandos); :}
 ;
 
 comando ::= comandoIf 
 | comandoFor
 | comandoWhile
+| comandoAtribuicao PONTOEVIRGULA
 | retornoSubprograma
 | interrupcaoDeLaco
-| read
-| write
 | chamada PONTOEVIRGULA
-| comandoAtribuicao PONTOEVIRGULA
-;
+| read
+| write;
 
 comandoIf ::= IF ABREPARENTESES expressao:exp FECHAPARENTESES ABRECHAVES bloco:bloco1 FECHACHAVES                                                                                   {: RESULT = Comando._if(exp, bloco1); :}
 | IF ABREPARENTESES expressao:exp FECHAPARENTESES ABRECHAVES bloco:bloco1 FECHACHAVES ELSE ABRECHAVES bloco:bloco2 FECHACHAVES                                                      {: RESULT = Comando._ifElse(exp, bloco1, bloco2); :}
@@ -192,12 +192,12 @@ chamada ::= ID:ident ABREPARENTESES listaExpressoes:expList FECHAPARENTESES     
 ;
 
 comandoAtribuicao ::= 
-variavel:var OPERADOR_ATRIBUICAO_MAIS_RECEBE expressao:exp          {: RESULT = Comando.atribuicao(var, Sym.OPERADOR_ATRIBUICAO_MAIS_RECEBE ,exp); :}
-| variavel:var OPERADOR_ATRIBUICAO_MENOS_RECEBE expressao:exp       {: RESULT = Comando.atribuicao(var, Sym.OPERADOR_ATRIBUICAO_MENOS_RECEBE ,exp); :}
-| variavel:var OPERADOR_ATRIBUICAO_VEZES_RECEBE expressao:exp       {: RESULT = Comando.atribuicao(var, Sym.OPERADOR_ATRIBUICAO_VEZES_RECEBE ,exp); :}
-| variavel:var OPERADOR_ATRIBUICAO_DIVIDIR_RECEBE expressao:exp     {: RESULT = Comando.atribuicao(var, Sym.OPERADOR_ATRIBUICAO_DIVIDIR_RECEBE ,exp); :}
-| variavel:var OPERADOR_ATRIBUICAO_MOD_RECEBE expressao:exp         {: RESULT = Comando.atribuicao(var, Sym.OPERADOR_ATRIBUICAO_MOD_RECEBE ,exp); :}
-| variavel:var OPERADOR_ATRIBUICAO_RECEBE expressao:exp             {: RESULT = Comando.atribuicao(var, Sym.OPERADOR_ATRIBUICAO_RECEBE ,exp); :}
+variavel:var OPERADOR_ATRIBUICAO_MAIS_RECEBE expressao:exp  {: RESULT = Comando.atribuicao(var, Sym.OPERADOR_ATRIBUICAO_MAIS_RECEBE ,exp); :}
+| variavel OPERADOR_ATRIBUICAO_MENOS_RECEBE expressao       {: RESULT = Comando.atribuicao(var, Sym.OPERADOR_ATRIBUICAO_MENOS_RECEBE ,exp); :}
+| variavel OPERADOR_ATRIBUICAO_VEZES_RECEBE expressao       {: RESULT = Comando.atribuicao(var, Sym.OPERADOR_ATRIBUICAO_VEZES_RECEBE ,exp); :}
+| variavel OPERADOR_ATRIBUICAO_DIVIDIR_RECEBE expressao     {: RESULT = Comando.atribuicao(var, Sym.OPERADOR_ATRIBUICAO_DIVIDIR_RECEBE ,exp); :}
+| variavel OPERADOR_ATRIBUICAO_MOD_RECEBE expressao         {: RESULT = Comando.atribuicao(var, Sym.OPERADOR_ATRIBUICAO_MOD_RECEBE ,exp); :}
+| variavel OPERADOR_ATRIBUICAO_RECEBE expressao             {: RESULT = Comando.atribuicao(var, Sym.OPERADOR_ATRIBUICAO_RECEBE ,exp); :}
 ;
 
 variavel ::= ID:ident                                           {: RESULT = Variavel.id(ident); :}
@@ -232,36 +232,31 @@ literal ::= NUMERO:numStr       {: RESULT = Literal.numero(numStr); :}
 ;
 
 listaParametro ::= parametro:par VIRGULA listaParametro:parList         {: parList.add(par); RESULT = parList; :}
-| parametro:par                                                         {:  List<Parametro> lista = new ArrayList<Parametro>();
+| parametro:par                                                         {:  List<Parametro> lista = new ArrayList<>();
                                                                             lista.add(par); RESULT = lista; :}
 ;
 
 specVarSeq ::= specVar:sVar VIRGULA specVarSeq:sVarList                 {: sVarList.add(sVar); RESULT = sVarList; :}
-| specVar:sVar                                                          {:  List<SpecVar> lista = new ArrayList<SpecVar>();
+| specVar:sVar                                                         {:  List<SpecVar> lista = new ArrayList<>();
                                                                             lista.add(sVar); RESULT = lista; :}
 ;
 
-decVarList ::= decVar:dVar decVarList:dVarList                          {: dVarList.add(dVar); RESULT = dVarList; :}
-| decVar:dVar                                                           {:  List<DecVar> lista = new ArrayList<DecVar>();
-                                                                            lista.add(dVar); RESULT = lista; :}
-; 
-
 declaracoes ::= declaracao:dec declaracoes:decList                      {: decList.add(dec); RESULT = decList; :}
-| declaracao:dec                                                        {:  List<Declaracao> lista = new ArrayList<Declaracao>();
+| declaracao:dec                                                        {:  List<Declaracao> lista = new ArrayList<>();
                                                                             lista.add(dec); RESULT = lista; :}
 ;                    
 
 comandos ::= comando:com comandos:comList                               {: comList.add(com); RESULT = comList; :}
-| comando:com                                                           {:  List<Comando> lista = new ArrayList<Comando>();
+| comando:com                                                           {:  List<Comando> lista = new ArrayList<>();
                                                                             lista.add(com); RESULT = lista; :}
 ;
 
 seqLiteral ::= literal:lit seqLiteral:litList                           {: litList.add(lit); RESULT = litList; :}
-| literal:lit                                                           {:  List<Literal> lista = new ArrayList<Literal>();
+| literal:lit                                                           {:  List<Literal> lista = new ArrayList<>();
                                                                             lista.add(lit); RESULT = lista; :}
 ;
 
 listaExpressoes ::= expressao:exp VIRGULA listaExpressoes:expList       {: expList.add(exp); RESULT = expList; :}
-| expressao:exp                                                         {:  List<Expressao> lista = new ArrayList<Expressao>();
+| expressao:exp                                                         {:  List<Expressao> lista = new ArrayList<>();
                                                                             lista.add(exp); RESULT = lista; :}
 ;

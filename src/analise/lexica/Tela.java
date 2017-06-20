@@ -1,5 +1,6 @@
 package analise.lexica;
 
+import analise.semantica.Programa;
 import analise.sintatica.Parser;
 import java.io.*;
 import java.nio.file.Paths;
@@ -79,7 +80,7 @@ public class Tela extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private String escreverCodigoArquivo(String codigo){
+    private String escreverCodigoEmArquivo(String codigo){
         try {
             String path = Paths.get("").toAbsolutePath().toString() + "/cod.txt";
             BufferedWriter out = new BufferedWriter(new FileWriter(path));
@@ -97,9 +98,9 @@ public class Tela extends javax.swing.JFrame {
      Parser p;
     private void btnAnalisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalisarActionPerformed
         try {            
-            String path = escreverCodigoArquivo(txtEntrada.getText());
+            String path = escreverCodigoEmArquivo(txtEntrada.getText());
             p = new Parser(new Lexer(new FileReader(path)));
-            Object result = p.parse().value;
+            Programa result = (Programa)p.parse().value;
             txtLogArea.setText("Compilação concluída com sucesso...");
             System.out.println("Compilação concluída com sucesso...");
         } catch (Exception ex) {

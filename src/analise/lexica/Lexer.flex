@@ -59,7 +59,12 @@ STRING = \"(.[^\"]*)\"
     ("<=") {return new Symbol(Sym.MENOR_IGUAL, yyline, yycolumn, yytext());}
 
     /* Operadores Atribuição */
-    ("+=" | "-="  | "*=" | "/=" | "%=" | "=")      {return new Symbol(Sym.OPERADOR_ATRIBUICAO);}
+    ("+=")      {return new Symbol(Sym.OPERADOR_ATRIBUICAO_MAIS_RECEBE, yyline, yycolumn, yytext());}
+    ("-=")      {return new Symbol(Sym.OPERADOR_ATRIBUICAO_MENOS_RECEBE, yyline, yycolumn, yytext());}
+    ("*=")      {return new Symbol(Sym.OPERADOR_ATRIBUICAO_VEZES_RECEBE, yyline, yycolumn, yytext());}
+    ("/=")      {return new Symbol(Sym.OPERADOR_ATRIBUICAO_DIVIDIR_RECEBE, yyline, yycolumn, yytext());}
+    ("%=")      {return new Symbol(Sym.OPERADOR_ATRIBUICAO_MOD_RECEBE, yyline, yycolumn, yytext());}
+    ("=")      {return new Symbol(Sym.OPERADOR_ATRIBUICAO_RECEBE, yyline, yycolumn, yytext());}
 
     /*Operadores Booleanos*/
     (true | false)      {return new Symbol(Sym.OPERADOR_BOOLEANO, yyline, yycolumn, yytext());}
@@ -75,11 +80,11 @@ STRING = \"(.[^\"]*)\"
    (";") {return new Symbol(Sym.PONTOEVIRGULA, yyline, yycolumn, yytext());}
 
     /*palavras reservadas */
-  ("break") {return new Symbol(Sym.BREAK, yyline, yycolumn, yytext());}
-  ("else") {return new Symbol(Sym.ELSE, yyline, yycolumn, yytext());}
-  ("for") {return new Symbol(Sym.FOR, yyline, yycolumn, yytext());}
-  ("if") {return new Symbol(Sym.IF, yyline, yycolumn, yytext());}
-  ("return") {return new Symbol(Sym.RETURN, yyline, yycolumn, yytext());}
+   ("break") {return new Symbol(Sym.BREAK, yyline, yycolumn, yytext());}
+   ("else") {return new Symbol(Sym.ELSE, yyline, yycolumn, yytext());}
+   ("for") {return new Symbol(Sym.FOR, yyline, yycolumn, yytext());}
+   ("if") {return new Symbol(Sym.IF, yyline, yycolumn, yytext());}
+   ("return") {return new Symbol(Sym.RETURN, yyline, yycolumn, yytext());}
    ("while") {return new Symbol(Sym.WHILE, yyline, yycolumn, yytext());}
    ("bool") {return new Symbol(Sym.BOOL, yyline, yycolumn, yytext());}
    ("int") {return new Symbol(Sym.INT, yyline, yycolumn, yytext());}

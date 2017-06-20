@@ -5,7 +5,6 @@ import java.io.StringReader;
 import javax.swing.JTextArea;
 
 public class Lexica {
-    
 //    public static void executarAnaliseLexica(JTextArea txtEntrada, JTextArea txtAreaResp) throws IOException{
 //        int linha = 1; int coluna = 1;
 //        JTextArea jText = txtEntrada;

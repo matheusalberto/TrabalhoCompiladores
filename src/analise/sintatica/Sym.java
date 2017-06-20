@@ -8,52 +8,64 @@ package analise.sintatica;
 /** CUP generated class containing symbol constants. */
 public class Sym {
   /* terminals */
-  public static final int NUMERO = 33;
-  public static final int MULTIPLICAR = 6;
-  public static final int INTERROGACAO = 11;
-  public static final int OPERADOR_ATRIBUICAO = 18;
-  public static final int DIFERENTE = 15;
-  public static final int OPERADOR_BOOLEANO = 19;
-  public static final int TIPO_STRING = 29;
-  public static final int INT = 28;
-  public static final int FOR = 23;
-  public static final int DOIS_PONTOS = 20;
-  public static final int VIRGULA = 41;
-  public static final int ABRECOLCHETES = 37;
-  public static final int WRITE = 30;
-  public static final int NEGACAO = 10;
-  public static final int AND = 9;
-  public static final int IGUAL = 14;
-  public static final int OR = 8;
-  public static final int BOOL = 27;
-  public static final int MAIS = 2;
-  public static final int ABRECHAVES = 39;
-  public static final int FECHACHAVES = 40;
-  public static final int FECHACOLCHETES = 38;
-  public static final int UMENOS = 4;
-  public static final int IF = 24;
-  public static final int PONTOEVIRGULA = 42;
-  public static final int ABREPARENTESES = 35;
-  public static final int ID = 32;
+  public static final int NUMERO = 4;
+  public static final int MULTIPLICAR = 13;
+  public static final int INTERROGACAO = 18;
+  public static final int OPERADOR_ATRIBUICAO_MAIS_RECEBE = 25;
+  public static final int OPERADOR_ATRIBUICAO_MENOS_RECEBE = 26;
+  public static final int DIFERENTE = 22;
+  public static final int OPERADOR_BOOLEANO = 2;
+  public static final int TIPO_STRING = 8;
+  public static final int INT = 7;
+  public static final int OPERADOR_ATRIBUICAO_VEZES_RECEBE = 27;
+  public static final int FOR = 34;
+  public static final int DOIS_PONTOS = 31;
+  public static final int VIRGULA = 46;
+  public static final int ABRECOLCHETES = 42;
+  public static final int WRITE = 38;
+  public static final int OPERADOR_ATRIBUICAO_MOD_RECEBE = 29;
+  public static final int NEGACAO = 17;
+  public static final int AND = 16;
+  public static final int IGUAL = 21;
+  public static final int OR = 15;
+  public static final int BOOL = 6;
+  public static final int MAIS = 9;
+  public static final int ABRECHAVES = 44;
+  public static final int FECHACHAVES = 45;
+  public static final int FECHACOLCHETES = 43;
+  public static final int IF = 35;
+  public static final int UMENOS = 11;
+  public static final int PONTOEVIRGULA = 47;
+  public static final int ABREPARENTESES = 40;
+  public static final int ID = 3;
   public static final int EOF = 0;
-  public static final int RETURN = 25;
-  public static final int MAIOR = 12;
+  public static final int RETURN = 36;
+  public static final int MAIOR = 19;
   public static final int error = 1;
-  public static final int MENOS = 3;
-  public static final int MENOR = 13;
-  public static final int MOD = 7;
-  public static final int BREAK = 21;
-  public static final int ELSE = 22;
-  public static final int DIVIDIR = 5;
-  public static final int READ = 31;
-  public static final int FECHAPARENTESES = 36;
-  public static final int WHILE = 26;
-  public static final int STRING = 34;
-  public static final int MENOR_IGUAL = 17;
-  public static final int MAIOR_IGUAL = 16;
+  public static final int MENOS = 10;
+  public static final int MENOR = 20;
+  public static final int MOD = 14;
+  public static final int BREAK = 32;
+  public static final int OPERADOR_ATRIBUICAO_RECEBE = 30;
+  public static final int ELSE = 33;
+  public static final int DIVIDIR = 12;
+  public static final int READ = 39;
+  public static final int FECHAPARENTESES = 41;
+  public static final int WHILE = 37;
+  public static final int STRING = 5;
+  public static final int OPERADOR_ATRIBUICAO_DIVIDIR_RECEBE = 28;
+  public static final int MENOR_IGUAL = 24;
+  public static final int MAIOR_IGUAL = 23;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
+  "OPERADOR_BOOLEANO",
+  "ID",
+  "NUMERO",
+  "STRING",
+  "BOOL",
+  "INT",
+  "TIPO_STRING",
   "MAIS",
   "MENOS",
   "UMENOS",
@@ -70,8 +82,12 @@ public class Sym {
   "DIFERENTE",
   "MAIOR_IGUAL",
   "MENOR_IGUAL",
-  "OPERADOR_ATRIBUICAO",
-  "OPERADOR_BOOLEANO",
+  "OPERADOR_ATRIBUICAO_MAIS_RECEBE",
+  "OPERADOR_ATRIBUICAO_MENOS_RECEBE",
+  "OPERADOR_ATRIBUICAO_VEZES_RECEBE",
+  "OPERADOR_ATRIBUICAO_DIVIDIR_RECEBE",
+  "OPERADOR_ATRIBUICAO_MOD_RECEBE",
+  "OPERADOR_ATRIBUICAO_RECEBE",
   "DOIS_PONTOS",
   "BREAK",
   "ELSE",
@@ -79,14 +95,8 @@ public class Sym {
   "IF",
   "RETURN",
   "WHILE",
-  "BOOL",
-  "INT",
-  "TIPO_STRING",
   "WRITE",
   "READ",
-  "ID",
-  "NUMERO",
-  "STRING",
   "ABREPARENTESES",
   "FECHAPARENTESES",
   "ABRECOLCHETES",

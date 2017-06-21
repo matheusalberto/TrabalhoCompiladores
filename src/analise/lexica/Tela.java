@@ -101,6 +101,7 @@ public class Tela extends javax.swing.JFrame {
             String path = escreverCodigoEmArquivo(txtEntrada.getText());
             p = new Parser(new Lexer(new FileReader(path)));
             Programa result = (Programa)p.parse().value;
+            //AQUI DEVE TER UMA FUNÇÃO PARA PERCORRER A ÁRVORE
             txtLogArea.setText("Compilação concluída com sucesso...");
             System.out.println("Compilação concluída com sucesso...");
         } catch (Exception ex) {

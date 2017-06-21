@@ -69,6 +69,19 @@ public abstract class Declaracao
             this.bloco = bloco;
         }
     }
-//---------------------------------------------------------------------------------------------------------------------------
-    
+//---------------------------------------------------------------------------------------------------------------------------    
+    public static InicializacaoDeclaracao InicDec(Declaracao dec)
+    {
+        return new InicializacaoDeclaracao(dec);
+    }    
+    public static class InicializacaoDeclaracao extends Declaracao{
+
+        Declaracao dec;
+        
+        public InicializacaoDeclaracao(Declaracao dec) 
+        {
+            this.dec = dec;
+        }
+    }
+//---------------------------------------------------------------------------------------------------------------------------    
 }

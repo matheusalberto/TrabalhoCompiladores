@@ -2,7 +2,7 @@ package analise.semantica;
 
 import java.util.List;
 
-public abstract class Comando
+public abstract class Comando 
 {
     public Comando(){}
     
@@ -118,6 +118,13 @@ public abstract class Comando
         }
     }
 //---------------------------------------------------------------------------------------------------------------------------
-    
-    
+    public static InicializacaoComando InicCom(Comando com){return new InicializacaoComando(com);}    
+    public static class InicializacaoComando extends Comando{
+        Comando com;
+
+        public InicializacaoComando(Comando com) {
+            this.com = com;
+        }
+    }
+//---------------------------------------------------------------------------------------------------------------------------
 }

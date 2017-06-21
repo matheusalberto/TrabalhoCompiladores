@@ -2,7 +2,7 @@ package analise.semantica;
 
 import java.util.List;
 
-public abstract class Chamada 
+public abstract class Chamada extends Comando
 {
     public Chamada(){}
     

@@ -18,5 +18,18 @@ public abstract class DecVar extends Declaracao
         }
     }
 //---------------------------------------------------------------------------------------------------------------------------
-    
+    public static InicializacaoDecVar InicDecVar(DecVar dec)
+    {
+        return new InicializacaoDecVar(dec);
+    }    
+    public static class InicializacaoDecVar extends DecVar{
+
+        DecVar dec;
+        
+        public InicializacaoDecVar(DecVar dec) 
+        {
+            this.dec = dec;
+        }
+    }
+//---------------------------------------------------------------------------------------------------------------------------
 }

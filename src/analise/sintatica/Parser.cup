@@ -117,9 +117,9 @@ start with programa;
 programa ::= declaracoes:decList {: RESULT = new Programa(decList); :}
 ;
 
-declaracao ::= decVar 
-| declaracaoFuncao
-| declaracaoProcedimento
+declaracao ::= decVar:decV      {: RESULT = DecVar.InicDecVar(decV); :}
+| declaracaoFuncao:decF         {: RESULT = Declaracao.InicDec(decF); :}
+| declaracaoProcedimento:decP   {: RESULT = Declaracao.InicDec(decP); :}
 ;
 
 declaracaoFuncao ::= tipo:t ID:id ABREPARENTESES listaParametro:list FECHAPARENTESES ABRECHAVES bloco:b FECHACHAVES                                                                 {: RESULT = Declaracao.declaracaoFuncaoComParametro(t,id,list,b); :}
@@ -153,15 +153,15 @@ bloco ::= decVarList:dec comandos:com   {: RESULT = Bloco.decVarListComandos(dec
 | comandos:com                          {: RESULT = Bloco.comandos(com); :}
 ;
 
-comando ::= comandoIf 
-| comandoFor
-| comandoWhile
-| retornoSubprograma
-| interrupcaoDeLaco
-| read
-| write
-| chamada PONTOEVIRGULA
-| comandoAtribuicao PONTOEVIRGULA
+comando ::= comandoIf:com               {: RESULT = Comando.InicCom(com); :}
+| comandoFor:com                        {: RESULT = Comando.InicCom(com); :}
+| comandoWhile:com                      {: RESULT = Comando.InicCom(com); :}
+| retornoSubprograma:com                {: RESULT = Comando.InicCom(com); :}
+| interrupcaoDeLaco:com                 {: RESULT = Comando.InicCom(com); :}
+| read:com                              {: RESULT = Comando.InicCom(com); :}
+| write:com                             {: RESULT = Comando.InicCom(com); :}
+| chamada:com PONTOEVIRGULA             {: RESULT = Comando.InicCom(com); :}
+| comandoAtribuicao:com PONTOEVIRGULA   {: RESULT = Comando.InicCom(com); :}
 ;
 
 comandoIf ::= IF ABREPARENTESES expressao:exp FECHAPARENTESES ABRECHAVES bloco:bloco1 FECHACHAVES                                                                                   {: RESULT = Comando._if(exp, bloco1); :}

@@ -1,6 +1,6 @@
 package analise.lexica;
 
-import analise.semantica.Programa;
+import analise.semantica.*;
 import analise.sintatica.Parser;
 import java.io.*;
 import java.nio.file.Paths;
@@ -101,6 +101,8 @@ public class Tela extends javax.swing.JFrame {
             String path = escreverCodigoEmArquivo(txtEntrada.getText());
             p = new Parser(new Lexer(new FileReader(path)));
             Programa result = (Programa)p.parse().value;
+            AnaliseSemantica j = new AnaliseSemantica();
+            j.AnalisarPrograma(result);
             //AQUI DEVE TER UMA FUNÇÃO PARA PERCORRER A ÁRVORE
             txtLogArea.setText("Compilação concluída com sucesso...");
             System.out.println("Compilação concluída com sucesso...");

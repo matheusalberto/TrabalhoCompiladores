@@ -76,7 +76,7 @@ public abstract class Declaracao
     }    
     public static class InicializacaoDeclaracao extends Declaracao{
 
-        Declaracao dec;
+        public Declaracao dec;
         
         public InicializacaoDeclaracao(Declaracao dec) 
         {
